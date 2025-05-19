@@ -15,4 +15,7 @@ public class Schedule extends BaseEntity {
 
     @Column(columnDefinition = "longtext")
     private String content;
+
+    @Column(nullable = false, name = "user_name")
+    private String name;
 }
