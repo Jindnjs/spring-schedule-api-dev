@@ -1,4 +1,4 @@
-package com.example.springscheduleapidev.dto.request;
+package com.example.springscheduleapidev.schedule.dto.request;
 
 import lombok.Getter;
 

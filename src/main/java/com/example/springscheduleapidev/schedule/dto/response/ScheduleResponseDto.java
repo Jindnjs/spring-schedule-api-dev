@@ -1,6 +1,6 @@
-package com.example.springscheduleapidev.dto.response;
+package com.example.springscheduleapidev.schedule.dto.response;
 
-import com.example.springscheduleapidev.entity.Schedule;
+import com.example.springscheduleapidev.schedule.Schedule;
 import lombok.Getter;
 
 import java.time.LocalDateTime;

@@ -1,5 +1,6 @@
-package com.example.springscheduleapidev.entity;
+package com.example.springscheduleapidev.schedule;
 
+import com.example.springscheduleapidev.common.entity.BaseEntity;
 import jakarta.persistence.*;
 import lombok.Getter;
 
