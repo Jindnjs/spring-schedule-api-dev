@@ -25,9 +25,8 @@ public class ScheduleService {
      */
     public ScheduleResponseDto create(CreateScheduleRequestDto dto) {
 
-        Schedule schedule = new Schedule(dto);
+        Schedule schedule = dto.toEntity();
         Schedule savedSchedule = scheduleRepository.save(schedule);
-
         return new ScheduleResponseDto(savedSchedule);
     }
 
@@ -65,7 +64,7 @@ public class ScheduleService {
      */
     public ScheduleResponseDto updateSchedule(Long id, UpdateScheduleRequestDto dto) {
         Schedule schedule = findScheduleByIdOrThrow(id);
-        schedule.updateSchedule(dto);
+        schedule.updateSchedule(dto.getTitle(),dto.getContent());
         Schedule savedSchedule = scheduleRepository.save(schedule);
         return new ScheduleResponseDto(savedSchedule);
     }

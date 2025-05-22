@@ -1,7 +1,5 @@
 package com.example.springscheduleapidev.entity;
 
-import com.example.springscheduleapidev.dto.request.CreateScheduleRequestDto;
-import com.example.springscheduleapidev.dto.request.UpdateScheduleRequestDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 
@@ -25,18 +23,18 @@ public class Schedule extends BaseEntity {
 
     public Schedule() {}
 
-    public Schedule(CreateScheduleRequestDto dto){
-        this.title = dto.getTitle();
-        this.content = dto.getContent();
-        this.name = dto.getName();
+    public Schedule(String title, String content, String name) {
+        this.title = title;
+        this.content = content;
+        this.name = name;
     }
 
-    public void updateSchedule(UpdateScheduleRequestDto dto){
-        if(dto.getTitle() != null && !dto.getTitle().isBlank()){
-            this.title = dto.getTitle();
+    public void updateSchedule(String title, String content){
+        if(title != null && !title.isBlank()){
+            this.title = title;
         }
-        if(dto.getContent() != null && !dto.getContent().isBlank()){
-            this.content = dto.getContent();
+        if(content != null && !content.isBlank()){
+            this.content = content;
         }
     }
 }
