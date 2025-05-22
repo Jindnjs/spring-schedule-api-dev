@@ -69,6 +69,12 @@ public class ScheduleService {
         return new ScheduleResponseDto(savedSchedule);
     }
 
+    public void deleteSchedule(Long id){
+        Schedule schedule = findScheduleByIdOrThrow(id);
+        scheduleRepository.delete(schedule);
+    }
+
+
     private Schedule findScheduleByIdOrThrow(Long id) {
         Optional<Schedule> optionalSchedule = scheduleRepository.findById(id);
         if (optionalSchedule.isPresent())
