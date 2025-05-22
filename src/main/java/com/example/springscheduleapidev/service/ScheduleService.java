@@ -1,6 +1,7 @@
 package com.example.springscheduleapidev.service;
 
 import com.example.springscheduleapidev.dto.request.CreateScheduleRequestDto;
+import com.example.springscheduleapidev.dto.request.UpdateScheduleRequestDto;
 import com.example.springscheduleapidev.dto.response.ScheduleResponseDto;
 import com.example.springscheduleapidev.entity.Schedule;
 import com.example.springscheduleapidev.repository.ScheduleRepository;
@@ -50,10 +51,30 @@ public class ScheduleService {
      * @throws RuntimeException 해당 id로 저장된 일정이 존재하지 않을경우 예외 발생
      */
     public ScheduleResponseDto findScheduleById(Long id) {
+        Schedule schedule = findScheduleByIdOrThrow(id);
+        return new ScheduleResponseDto(schedule);
+    }
+
+    /**
+     * id에 맞는 일정을 수정합니다.
+     *
+     * @param id  수정할 일정의 id
+     * @param dto 수정할 일정의 요청 정보
+     * @return {@link ScheduleResponseDto} 수정된 일정 정보
+     * @throws RuntimeException 해당 id로 저장된 일정이 존재하지 않을경우 예외 발생
+     */
+    public ScheduleResponseDto updateSchedule(Long id, UpdateScheduleRequestDto dto) {
+        Schedule schedule = findScheduleByIdOrThrow(id);
+        schedule.updateSchedule(dto);
+        Schedule savedSchedule = scheduleRepository.save(schedule);
+        return new ScheduleResponseDto(savedSchedule);
+    }
+
+    private Schedule findScheduleByIdOrThrow(Long id) {
         Optional<Schedule> optionalSchedule = scheduleRepository.findById(id);
         if (optionalSchedule.isPresent())
-            return new ScheduleResponseDto(optionalSchedule.get());
+            return optionalSchedule.get();
         else
-            throw new RuntimeException("Schedule not found");
+            throw new RuntimeException("Data Not Found. Id: " + id);
     }
 }
