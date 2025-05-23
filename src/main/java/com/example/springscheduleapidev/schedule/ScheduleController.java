@@ -74,6 +74,12 @@ public class ScheduleController {
         return ResponseEntity.ok(responseDto);
     }
 
+    /**
+     * 특정 id의 일정을 삭제하는 API
+     *
+     * @param id 수정할 일정의 id
+     * @return 200 Ok 응답과 삭제 완료 문자열 반환
+     */
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteSchedule(
             @PathVariable Long id

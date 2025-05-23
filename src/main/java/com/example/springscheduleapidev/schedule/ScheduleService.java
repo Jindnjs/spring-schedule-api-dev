@@ -67,6 +67,11 @@ public class ScheduleService {
         return new ScheduleResponseDto(savedSchedule);
     }
 
+    /**
+     * id에 맞는 일정을 삭제합니다.
+     *
+     * @param id 삭제할 일정의 id
+     */
     public void deleteSchedule(Long id){
         Schedule schedule = findScheduleByIdOrThrow(id);
         scheduleRepository.delete(schedule);
