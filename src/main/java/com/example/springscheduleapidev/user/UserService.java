@@ -1,7 +1,8 @@
 package com.example.springscheduleapidev.user;
 
 import com.example.springscheduleapidev.user.dto.request.CreateUserRequestDto;
-import com.example.springscheduleapidev.user.dto.response.CreateUserResponseDto;
+import com.example.springscheduleapidev.user.dto.response.UserResponseDto;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -10,8 +11,14 @@ import org.springframework.stereotype.Service;
 public class UserService {
     private final UserRepository userRepository;
 
-    public CreateUserResponseDto create(CreateUserRequestDto dto) {
+    public UserResponseDto create(CreateUserRequestDto dto) {
         User savedUser = userRepository.save(dto.toEntity());
-        return CreateUserResponseDto.toDto(savedUser);
+        return UserResponseDto.toDto(savedUser);
+    }
+
+    public UserResponseDto getById(Long id) {
+        User savedUser = userRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("User not found"));
+        return UserResponseDto.toDto(savedUser);
     }
 }

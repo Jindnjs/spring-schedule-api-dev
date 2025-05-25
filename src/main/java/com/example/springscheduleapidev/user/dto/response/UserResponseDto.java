@@ -6,17 +6,17 @@ import lombok.Getter;
 import java.time.LocalDateTime;
 
 @Getter
-public class CreateUserResponseDto {
+public class UserResponseDto {
     private Long id;
     private String name;
     private String email;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
-    public CreateUserResponseDto() {
+    public UserResponseDto() {
     }
 
-    public CreateUserResponseDto(Long id, String name, String email, LocalDateTime createdAt, LocalDateTime updatedAt) {
+    public UserResponseDto(Long id, String name, String email, LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.id = id;
         this.name = name;
         this.email = email;
@@ -24,8 +24,8 @@ public class CreateUserResponseDto {
         this.updatedAt = updatedAt;
     }
 
-    public static CreateUserResponseDto toDto(User user){
-        return new CreateUserResponseDto(
+    public static UserResponseDto toDto(User user){
+        return new UserResponseDto(
                 user.getId(),
                 user.getName(),
                 user.getEmail(),
