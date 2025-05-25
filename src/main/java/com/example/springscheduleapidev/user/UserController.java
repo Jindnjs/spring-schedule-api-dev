@@ -1,6 +1,7 @@
 package com.example.springscheduleapidev.user;
 
 import com.example.springscheduleapidev.user.dto.request.CreateUserRequestDto;
+import com.example.springscheduleapidev.user.dto.request.UserUpdateRequestDto;
 import com.example.springscheduleapidev.user.dto.response.UserResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -30,9 +31,24 @@ public class UserController {
             @PathVariable Long id
     ){
         UserResponseDto user = userService.getById(id);
-        return ResponseEntity
-                .status(HttpStatus.OK)
-                .body(user);
+        return ResponseEntity.ok(user);
 
+    }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<UserResponseDto> update(
+            @PathVariable Long id,
+            @RequestBody UserUpdateRequestDto dto
+    ){
+        UserResponseDto updatedUser = userService.update(id, dto);
+        return ResponseEntity.ok(updatedUser);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> delete(
+            @PathVariable Long id
+    ){
+        userService.delete(id);
+        return ResponseEntity.ok("유저 삭제완료 id: " + id);
     }
 }
