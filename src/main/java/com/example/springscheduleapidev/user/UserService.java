@@ -1,5 +1,6 @@
 package com.example.springscheduleapidev.user;
 
+import com.example.springscheduleapidev.common.security.PasswordEncoder;
 import com.example.springscheduleapidev.user.dto.request.CreateUserRequestDto;
 import com.example.springscheduleapidev.user.dto.request.LoginRequestDto;
 import com.example.springscheduleapidev.user.dto.request.UserUpdateRequestDto;
@@ -13,11 +14,14 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class UserService {
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
     public UserResponseDto create(CreateUserRequestDto dto) {
         if(userRepository.findByEmail(dto.getEmail()).isPresent())
             throw new RuntimeException("이미 존재하는 이메일입니다.");
-        User savedUser = userRepository.save(dto.toEntity());
+        String encodedPassword = passwordEncoder.encode(dto.getPassword());
+        User user = new User(dto.getName(), dto.getEmail(), encodedPassword);
+        User savedUser = userRepository.save(user);
         return UserResponseDto.toDto(savedUser);
     }
 
@@ -46,7 +50,7 @@ public class UserService {
     public LoginResponseDto login(LoginRequestDto dto) {
         User user = userRepository.findByEmail(dto.getEmail())
                 .orElseThrow(() -> new EntityNotFoundException("User not found"));
-        if(!user.getPassword().equals(dto.getPassword()))
+        if(!passwordEncoder.matches(dto.getPassword(), user.getPassword()))
             throw new RuntimeException("Wrong password");
         return LoginResponseDto.toDto(user);
     }

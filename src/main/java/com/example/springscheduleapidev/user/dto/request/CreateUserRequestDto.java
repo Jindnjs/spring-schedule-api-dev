@@ -1,6 +1,5 @@
 package com.example.springscheduleapidev.user.dto.request;
 
-import com.example.springscheduleapidev.user.User;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 
@@ -12,9 +11,4 @@ public class CreateUserRequestDto {
     private String email;
     @NotBlank(message = "비밀번호를 입력하세요.")
     private String password;
-
-    public User toEntity(){
-        User user = new User(name, email, password);
-        return user;
-    }
 }
