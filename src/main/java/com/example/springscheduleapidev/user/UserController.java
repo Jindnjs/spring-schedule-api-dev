@@ -1,8 +1,13 @@
 package com.example.springscheduleapidev.user;
 
+import com.example.springscheduleapidev.common.security.LoginInfo;
 import com.example.springscheduleapidev.user.dto.request.CreateUserRequestDto;
+import com.example.springscheduleapidev.user.dto.request.LoginRequestDto;
 import com.example.springscheduleapidev.user.dto.request.UserUpdateRequestDto;
+import com.example.springscheduleapidev.user.dto.response.LoginResponseDto;
 import com.example.springscheduleapidev.user.dto.response.UserResponseDto;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,13 +15,12 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/users")
 @RequiredArgsConstructor
 public class UserController {
 
     private final UserService userService;
 
-    @PostMapping
+    @PostMapping("/signup")
     public ResponseEntity<UserResponseDto> create(
             @Validated @RequestBody CreateUserRequestDto dto
     ){
@@ -26,7 +30,7 @@ public class UserController {
                 .body(createdUser);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/users/{id}")
     public ResponseEntity<UserResponseDto> getById(
             @PathVariable Long id
     ){
@@ -35,7 +39,7 @@ public class UserController {
 
     }
 
-    @PatchMapping("/{id}")
+    @PatchMapping("/users/{id}")
     public ResponseEntity<UserResponseDto> update(
             @PathVariable Long id,
             @RequestBody UserUpdateRequestDto dto
@@ -44,11 +48,33 @@ public class UserController {
         return ResponseEntity.ok(updatedUser);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/users/{id}")
     public ResponseEntity<String> delete(
             @PathVariable Long id
     ){
         userService.delete(id);
         return ResponseEntity.ok("유저 삭제완료 id: " + id);
     }
+
+    @PostMapping("/login")
+    public ResponseEntity<String> login(
+            HttpSession session,
+            @Validated @RequestBody LoginRequestDto dto
+    ){
+        LoginResponseDto loginInfo = userService.login(dto);
+        session.setAttribute(LoginInfo.LOGIN_INFO, loginInfo);
+        return ResponseEntity.ok("로그인");
+    }
+
+    @PostMapping("/logout")
+    public ResponseEntity<String> logout(
+            HttpServletRequest request
+    ){
+        HttpSession session = request.getSession(false);
+        if (session != null) {
+            session.invalidate();
+        }
+        return ResponseEntity.ok("로그아웃");
+    }
+
 }

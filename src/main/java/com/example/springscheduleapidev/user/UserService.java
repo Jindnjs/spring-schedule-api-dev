@@ -1,7 +1,9 @@
 package com.example.springscheduleapidev.user;
 
 import com.example.springscheduleapidev.user.dto.request.CreateUserRequestDto;
+import com.example.springscheduleapidev.user.dto.request.LoginRequestDto;
 import com.example.springscheduleapidev.user.dto.request.UserUpdateRequestDto;
+import com.example.springscheduleapidev.user.dto.response.LoginResponseDto;
 import com.example.springscheduleapidev.user.dto.response.UserResponseDto;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -13,6 +15,8 @@ public class UserService {
     private final UserRepository userRepository;
 
     public UserResponseDto create(CreateUserRequestDto dto) {
+        if(userRepository.findByEmail(dto.getEmail()).isPresent())
+            throw new RuntimeException("이미 존재하는 이메일입니다.");
         User savedUser = userRepository.save(dto.toEntity());
         return UserResponseDto.toDto(savedUser);
     }
@@ -38,4 +42,13 @@ public class UserService {
         return userRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("User not found"));
     }
+
+    public LoginResponseDto login(LoginRequestDto dto) {
+        User user = userRepository.findByEmail(dto.getEmail())
+                .orElseThrow(() -> new EntityNotFoundException("User not found"));
+        if(!user.getPassword().equals(dto.getPassword()))
+            throw new RuntimeException("Wrong password");
+        return LoginResponseDto.toDto(user);
+    }
+
 }
