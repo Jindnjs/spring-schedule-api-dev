@@ -1,7 +1,6 @@
 package com.example.springscheduleapidev.common.exception;
 
 import com.example.springscheduleapidev.common.response.BaseResponse;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -34,10 +33,10 @@ public class GlobalExceptionHandler {
                 .body(BaseResponse.error(ErrorCode.MISSING_REQUEST_BODY, null));
     }
 
-    @ExceptionHandler(RuntimeException.class)
-    public ResponseEntity<String> handleRuntimeException(RuntimeException e) {
+    @ExceptionHandler(BaseException.class)
+    public ResponseEntity<BaseResponse<?>> handleRuntimeException(BaseException e) {
         return ResponseEntity
-                .status(HttpStatus.BAD_REQUEST)
-                .body(e.getMessage());
+                .status(e.getErrorCode().getStatus())
+                .body(BaseResponse.error(e.getErrorCode(), null));
     }
 }

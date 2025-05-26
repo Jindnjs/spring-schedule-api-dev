@@ -1,11 +1,11 @@
 package com.example.springscheduleapidev.domain.schedule;
 
-import com.example.springscheduleapidev.dto.schedule.CreateScheduleRequestDto;
-import com.example.springscheduleapidev.dto.schedule.UpdateScheduleRequestDto;
-import com.example.springscheduleapidev.dto.schedule.ScheduleResponseDto;
+import com.example.springscheduleapidev.common.exception.UserNotFoundException;
 import com.example.springscheduleapidev.domain.user.User;
 import com.example.springscheduleapidev.domain.user.UserRepository;
-import jakarta.persistence.EntityNotFoundException;
+import com.example.springscheduleapidev.dto.schedule.CreateScheduleRequestDto;
+import com.example.springscheduleapidev.dto.schedule.ScheduleResponseDto;
+import com.example.springscheduleapidev.dto.schedule.UpdateScheduleRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -28,7 +28,7 @@ public class ScheduleService {
     public ScheduleResponseDto create(CreateScheduleRequestDto dto) {
 
         User user = userRepository.findById(dto.getUserId())
-                .orElseThrow(() -> new EntityNotFoundException("User not found"));
+                .orElseThrow(UserNotFoundException::new);
         Schedule schedule = dto.toEntity(user);
         Schedule savedSchedule = scheduleRepository.save(schedule);
         return new ScheduleResponseDto(savedSchedule);

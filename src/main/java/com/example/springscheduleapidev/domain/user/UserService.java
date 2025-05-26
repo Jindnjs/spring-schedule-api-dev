@@ -1,12 +1,8 @@
 package com.example.springscheduleapidev.domain.user;
 
+import com.example.springscheduleapidev.common.exception.UserNotFoundException;
 import com.example.springscheduleapidev.common.security.PasswordEncoder;
-import com.example.springscheduleapidev.dto.user.CreateUserRequestDto;
-import com.example.springscheduleapidev.dto.user.LoginRequestDto;
-import com.example.springscheduleapidev.dto.user.UserUpdateRequestDto;
-import com.example.springscheduleapidev.dto.user.LoginResponseDto;
-import com.example.springscheduleapidev.dto.user.UserResponseDto;
-import jakarta.persistence.EntityNotFoundException;
+import com.example.springscheduleapidev.dto.user.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -44,12 +40,12 @@ public class UserService {
 
     private User findByIdOrThrow(Long id) {
         return userRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("User not found"));
+                .orElseThrow(UserNotFoundException::new);
     }
 
     public LoginResponseDto login(LoginRequestDto dto) {
         User user = userRepository.findByEmail(dto.getEmail())
-                .orElseThrow(() -> new EntityNotFoundException("User not found"));
+                .orElseThrow(UserNotFoundException::new);
         if(!passwordEncoder.matches(dto.getPassword(), user.getPassword()))
             throw new RuntimeException("Wrong password");
         return LoginResponseDto.toDto(user);
