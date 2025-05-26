@@ -18,7 +18,7 @@ public class BaseResponse<T> {
         this.body = body;
     }
 
-    public static <T> BaseResponse<T> success(BaseCode responseCode, T body) {
+    public static <T> BaseResponse<T> response(BaseCode responseCode, T body) {
         return new BaseResponse<>(responseCode.getStatus(), responseCode.getMessage(), body);
     }
 

@@ -1,8 +1,9 @@
 package com.example.springscheduleapidev.domain.schedule;
 
-import com.example.springscheduleapidev.domain.user.exception.UserNotFoundException;
+import com.example.springscheduleapidev.domain.schedule.exception.ScheduleNotFoundException;
 import com.example.springscheduleapidev.domain.user.User;
 import com.example.springscheduleapidev.domain.user.UserRepository;
+import com.example.springscheduleapidev.domain.user.exception.UserNotFoundException;
 import com.example.springscheduleapidev.dto.schedule.CreateScheduleRequestDto;
 import com.example.springscheduleapidev.dto.schedule.ScheduleResponseDto;
 import com.example.springscheduleapidev.dto.schedule.UpdateScheduleRequestDto;
@@ -10,7 +11,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -85,10 +85,7 @@ public class ScheduleService {
 
 
     private Schedule findScheduleByIdOrThrow(Long id) {
-        Optional<Schedule> optionalSchedule = scheduleRepository.findById(id);
-        if (optionalSchedule.isPresent())
-            return optionalSchedule.get();
-        else
-            throw new RuntimeException("Data Not Found. Id: " + id);
+        return scheduleRepository.findById(id)
+                .orElseThrow(ScheduleNotFoundException::new);
     }
 }
