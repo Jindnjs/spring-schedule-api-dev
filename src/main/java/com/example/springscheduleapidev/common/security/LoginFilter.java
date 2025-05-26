@@ -3,11 +3,12 @@ package com.example.springscheduleapidev.common.security;
 import jakarta.servlet.*;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import org.springframework.stereotype.Component;
 import org.springframework.util.PatternMatchUtils;
 
 import java.io.IOException;
 
-
+@Component
 public class LoginFilter implements Filter {
 
     private static final  String [] WHITELIST = {"/","/signup","/login","/logout"};

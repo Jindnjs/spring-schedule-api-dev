@@ -1,7 +1,10 @@
 package com.example.springscheduleapidev.domain.user;
 
-import com.example.springscheduleapidev.common.exception.UserNotFoundException;
 import com.example.springscheduleapidev.common.security.PasswordEncoder;
+import com.example.springscheduleapidev.domain.user.exception.EmailExistException;
+import com.example.springscheduleapidev.domain.user.exception.EmailMismatchException;
+import com.example.springscheduleapidev.domain.user.exception.PasswordMismatchException;
+import com.example.springscheduleapidev.domain.user.exception.UserNotFoundException;
 import com.example.springscheduleapidev.dto.user.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -14,7 +17,7 @@ public class UserService {
 
     public UserResponseDto create(CreateUserRequestDto dto) {
         if(userRepository.findByEmail(dto.getEmail()).isPresent())
-            throw new RuntimeException("이미 존재하는 이메일입니다.");
+            throw new EmailExistException();
         String encodedPassword = passwordEncoder.encode(dto.getPassword());
         User user = new User(dto.getName(), dto.getEmail(), encodedPassword);
         User savedUser = userRepository.save(user);
@@ -45,9 +48,9 @@ public class UserService {
 
     public LoginResponseDto login(LoginRequestDto dto) {
         User user = userRepository.findByEmail(dto.getEmail())
-                .orElseThrow(UserNotFoundException::new);
+                .orElseThrow(EmailMismatchException::new);
         if(!passwordEncoder.matches(dto.getPassword(), user.getPassword()))
-            throw new RuntimeException("Wrong password");
+            throw new PasswordMismatchException();
         return LoginResponseDto.toDto(user);
     }
 

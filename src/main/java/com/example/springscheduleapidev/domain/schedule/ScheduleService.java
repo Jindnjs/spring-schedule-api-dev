@@ -1,6 +1,6 @@
 package com.example.springscheduleapidev.domain.schedule;
 
-import com.example.springscheduleapidev.common.exception.UserNotFoundException;
+import com.example.springscheduleapidev.domain.user.exception.UserNotFoundException;
 import com.example.springscheduleapidev.domain.user.User;
 import com.example.springscheduleapidev.domain.user.UserRepository;
 import com.example.springscheduleapidev.dto.schedule.CreateScheduleRequestDto;
