@@ -32,7 +32,7 @@ public class UserService {
 
     public UserResponseDto update(Long id, UserUpdateRequestDto dto) {
         User savedUser = findByIdOrThrow(id);
-        savedUser.update(dto.getName(), dto.getEmail(), dto.getPassword());
+        savedUser.update(dto.getName(), dto.getEmail());
         User updatedUser = userRepository.save(savedUser);
         return UserResponseDto.toDto(updatedUser);
     }
