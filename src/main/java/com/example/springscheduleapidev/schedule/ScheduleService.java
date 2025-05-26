@@ -3,6 +3,9 @@ package com.example.springscheduleapidev.schedule;
 import com.example.springscheduleapidev.schedule.dto.request.CreateScheduleRequestDto;
 import com.example.springscheduleapidev.schedule.dto.request.UpdateScheduleRequestDto;
 import com.example.springscheduleapidev.schedule.dto.response.ScheduleResponseDto;
+import com.example.springscheduleapidev.user.User;
+import com.example.springscheduleapidev.user.UserRepository;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +17,7 @@ import java.util.Optional;
 public class ScheduleService {
 
     private final ScheduleRepository scheduleRepository;
+    private final UserRepository userRepository;
 
     /**
      * 새로운 일정을 생성합니다.
@@ -23,7 +27,9 @@ public class ScheduleService {
      */
     public ScheduleResponseDto create(CreateScheduleRequestDto dto) {
 
-        Schedule schedule = dto.toEntity();
+        User user = userRepository.findById(dto.getUserId())
+                .orElseThrow(() -> new EntityNotFoundException("User not found"));
+        Schedule schedule = dto.toEntity(user);
         Schedule savedSchedule = scheduleRepository.save(schedule);
         return new ScheduleResponseDto(savedSchedule);
     }

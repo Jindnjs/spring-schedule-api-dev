@@ -1,7 +1,9 @@
 package com.example.springscheduleapidev.schedule.dto.request;
 
 import com.example.springscheduleapidev.schedule.Schedule;
+import com.example.springscheduleapidev.user.User;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 
 @Getter
@@ -12,10 +14,10 @@ public class CreateScheduleRequestDto {
 
     private String content;
 
-    @NotBlank(message = "이름을 입력하세요.")
-    private String name;
+    @NotNull(message = "아이디를 입력하세요")
+    private Long userId;
 
-    public Schedule toEntity() {
-        return new Schedule(title, content, name);
+    public Schedule toEntity(User user) {
+        return new Schedule(title, content, user);
     }
 }

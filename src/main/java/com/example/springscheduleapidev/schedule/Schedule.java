@@ -1,6 +1,7 @@
 package com.example.springscheduleapidev.schedule;
 
 import com.example.springscheduleapidev.common.entity.BaseEntity;
+import com.example.springscheduleapidev.user.User;
 import jakarta.persistence.*;
 import lombok.Getter;
 
@@ -19,15 +20,16 @@ public class Schedule extends BaseEntity {
     @Column(columnDefinition = "longtext")
     private String content;
 
-    @Column(nullable = false, name = "user_name")
-    private String name;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
     public Schedule() {}
 
-    public Schedule(String title, String content, String name) {
+    public Schedule(String title, String content, User user) {
         this.title = title;
         this.content = content;
-        this.name = name;
+        this.user = user;
     }
 
     public void updateSchedule(String title, String content){
