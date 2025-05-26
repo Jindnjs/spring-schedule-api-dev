@@ -1,5 +1,6 @@
-package com.example.springscheduleapidev.common.exception;
+package com.example.springscheduleapidev.dto.exception;
 
+import com.example.springscheduleapidev.common.exception.BaseErrorCode;
 import org.springframework.http.HttpStatus;
 
 public enum ValidateErrorCode implements BaseErrorCode {

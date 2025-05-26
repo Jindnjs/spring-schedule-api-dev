@@ -1,7 +1,7 @@
-package com.example.springscheduleapidev.schedule;
+package com.example.springscheduleapidev.domain.schedule;
 
 import com.example.springscheduleapidev.common.entity.BaseEntity;
-import com.example.springscheduleapidev.user.User;
+import com.example.springscheduleapidev.domain.user.User;
 import jakarta.persistence.*;
 import lombok.Getter;
 

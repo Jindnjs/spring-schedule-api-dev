@@ -1,11 +1,11 @@
-package com.example.springscheduleapidev.user;
+package com.example.springscheduleapidev.domain.user;
 
 import com.example.springscheduleapidev.common.security.PasswordEncoder;
-import com.example.springscheduleapidev.user.dto.request.CreateUserRequestDto;
-import com.example.springscheduleapidev.user.dto.request.LoginRequestDto;
-import com.example.springscheduleapidev.user.dto.request.UserUpdateRequestDto;
-import com.example.springscheduleapidev.user.dto.response.LoginResponseDto;
-import com.example.springscheduleapidev.user.dto.response.UserResponseDto;
+import com.example.springscheduleapidev.dto.user.CreateUserRequestDto;
+import com.example.springscheduleapidev.dto.user.LoginRequestDto;
+import com.example.springscheduleapidev.dto.user.UserUpdateRequestDto;
+import com.example.springscheduleapidev.dto.user.LoginResponseDto;
+import com.example.springscheduleapidev.dto.user.UserResponseDto;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

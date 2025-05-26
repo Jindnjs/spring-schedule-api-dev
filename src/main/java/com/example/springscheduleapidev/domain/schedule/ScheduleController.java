@@ -1,8 +1,8 @@
-package com.example.springscheduleapidev.schedule;
+package com.example.springscheduleapidev.domain.schedule;
 
-import com.example.springscheduleapidev.schedule.dto.request.CreateScheduleRequestDto;
-import com.example.springscheduleapidev.schedule.dto.request.UpdateScheduleRequestDto;
-import com.example.springscheduleapidev.schedule.dto.response.ScheduleResponseDto;
+import com.example.springscheduleapidev.dto.schedule.CreateScheduleRequestDto;
+import com.example.springscheduleapidev.dto.schedule.UpdateScheduleRequestDto;
+import com.example.springscheduleapidev.dto.schedule.ScheduleResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

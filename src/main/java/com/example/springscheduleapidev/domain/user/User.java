@@ -1,4 +1,4 @@
-package com.example.springscheduleapidev.user;
+package com.example.springscheduleapidev.domain.user;
 
 import com.example.springscheduleapidev.common.entity.BaseEntity;
 import jakarta.persistence.*;

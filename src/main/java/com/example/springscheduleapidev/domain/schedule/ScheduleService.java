@@ -1,10 +1,10 @@
-package com.example.springscheduleapidev.schedule;
+package com.example.springscheduleapidev.domain.schedule;
 
-import com.example.springscheduleapidev.schedule.dto.request.CreateScheduleRequestDto;
-import com.example.springscheduleapidev.schedule.dto.request.UpdateScheduleRequestDto;
-import com.example.springscheduleapidev.schedule.dto.response.ScheduleResponseDto;
-import com.example.springscheduleapidev.user.User;
-import com.example.springscheduleapidev.user.UserRepository;
+import com.example.springscheduleapidev.dto.schedule.CreateScheduleRequestDto;
+import com.example.springscheduleapidev.dto.schedule.UpdateScheduleRequestDto;
+import com.example.springscheduleapidev.dto.schedule.ScheduleResponseDto;
+import com.example.springscheduleapidev.domain.user.User;
+import com.example.springscheduleapidev.domain.user.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

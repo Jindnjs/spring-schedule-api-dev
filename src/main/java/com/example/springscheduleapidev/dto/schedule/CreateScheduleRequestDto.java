@@ -1,7 +1,7 @@
-package com.example.springscheduleapidev.schedule.dto.request;
+package com.example.springscheduleapidev.dto.schedule;
 
-import com.example.springscheduleapidev.schedule.Schedule;
-import com.example.springscheduleapidev.user.User;
+import com.example.springscheduleapidev.domain.schedule.Schedule;
+import com.example.springscheduleapidev.domain.user.User;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;

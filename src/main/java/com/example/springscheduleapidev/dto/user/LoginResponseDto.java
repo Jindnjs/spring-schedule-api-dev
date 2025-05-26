@@ -1,6 +1,6 @@
-package com.example.springscheduleapidev.user.dto.response;
+package com.example.springscheduleapidev.dto.user;
 
-import com.example.springscheduleapidev.user.User;
+import com.example.springscheduleapidev.domain.user.User;
 import lombok.Getter;
 
 @Getter
